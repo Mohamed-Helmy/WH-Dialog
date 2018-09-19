@@ -1,15 +1,15 @@
 package dialog.wh;
 
+import android.arch.lifecycle.ReportFragment;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
+import dialog.wh.lib.WHBuilder;
 import dialog.wh.lib.WHDialog;
 
 public class MainActivity extends AppCompatActivity {
@@ -26,10 +26,18 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-            WHDialog whDialog= new WHDialog(MainActivity.this);
+                WHDialog whDialog = new WHDialog(MainActivity.this,
+                        new WHBuilder()
+                                .setToolbarColor("#9301d2")
+                                .setBackgroundColor("#ffffff")
+                                .setDialogRadius(20)
+                                .setToolbarTitle("")
+                                .setDialogHieght(500)
 
-            whDialog.show();
-            whDialog.setCancelable(false);
+                                .build(null)
+                );
+                whDialog.show();
+                whDialog.setCancelable(false);
             }
         });
     }
