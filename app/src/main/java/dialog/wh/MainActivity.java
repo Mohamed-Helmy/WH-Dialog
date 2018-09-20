@@ -31,8 +31,9 @@ public class MainActivity extends AppCompatActivity {
                                 .setToolbarColor("#9301d2")
                                 .setBackgroundColor("#ffffff")
                                 .setDialogRadius(20)
-                                .setToolbarTitle("")
+                                .setToolbarTitle("sadasdsad")
                                 .setDialogHieght(500)
+                                .setToolbarIcon(getDrawable(R.drawable.ic_launcher_background))
 
                                 .build(null)
                 );
