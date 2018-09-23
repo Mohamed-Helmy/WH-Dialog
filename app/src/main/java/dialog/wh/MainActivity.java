@@ -11,6 +11,7 @@ import android.view.View;
 
 import dialog.wh.lib.WHBuilder;
 import dialog.wh.lib.WHDialog;
+import dialog.wh.lib.WHDialogFragment;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -25,7 +26,6 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 WHDialog whDialog = new WHDialog(MainActivity.this,
                         new WHBuilder()
                                 .setToolbarColor("#9301d2")
@@ -34,11 +34,19 @@ public class MainActivity extends AppCompatActivity {
                                 .setToolbarTitle("sadasdsad")
                                 .setDialogHieght(500)
                                 .setToolbarIcon(getDrawable(R.drawable.ic_launcher_background))
+                                .setImage("https://i.stack.imgur.com/AYKAp.png").setImageName("helmy.png")
 
-                                .build(null)
                 );
                 whDialog.show();
                 whDialog.setCancelable(false);
+
+//                TestFragment testFragment=new TestFragment();
+//
+//                WHDialogFragment whDialogFragment = new WHDialogFragment();
+//                WHDialogFragment.builder=new WHBuilder().setToolbarTitle("dfsd")
+//                .build(testFragment,getSupportFragmentManager())
+//                ;
+//                whDialogFragment.show(getSupportFragmentManager(),"");
             }
         });
     }

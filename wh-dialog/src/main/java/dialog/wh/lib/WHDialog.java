@@ -1,10 +1,18 @@
 package dialog.wh.lib;
 
+import android.Manifest;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
+import android.os.Build;
+import android.os.Environment;
+import android.support.v4.app.ActivityCompat;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
@@ -14,14 +22,27 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.budiyev.android.imageloader.ImageLoader;
+import com.budiyev.android.imageloader.ImageUtils;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+
+import static android.content.ContentValues.TAG;
+import static android.support.v4.content.PermissionChecker.checkSelfPermission;
+
 
 public class WHDialog extends Dialog implements View.OnClickListener {
-    FrameLayout toolbarFrame,bottombarFrame,bodyFrame;
+    FrameLayout toolbarFrame,bottombarFrame;
+    ImageView bodyFrame;
     RelativeLayout dialogLayout;
     Button imgCloseIcon;
     TextView txtTitle;
     ImageView imgIcon;
-    public WHDialog(Context context,WHBuilder builder) {
+    public WHDialog(Context context, final WHBuilder builder) {
         super(context);
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         this.setContentView(R.layout.dailog_layout);
@@ -38,7 +59,7 @@ public class WHDialog extends Dialog implements View.OnClickListener {
         dialogLayout.getLayoutParams().height=px;
         toolbarFrame.setBackground(getToolbarShape(builder));
         bottombarFrame.setBackground(getBottombarShape(builder));
-        bodyFrame=(FrameLayout)findViewById(R.id.body);
+        bodyFrame=(ImageView) findViewById(R.id.image);
         bodyFrame.setBackgroundColor(Color.parseColor(builder.getBackgroundColor()));
         imgCloseIcon=(Button) findViewById(R.id.btn_close);
         imgCloseIcon.setOnClickListener(this);
@@ -59,8 +80,52 @@ public class WHDialog extends Dialog implements View.OnClickListener {
             imgIcon.setImageDrawable(builder.getToolbarIcon());
         }
 
+
+        if(builder.getImage()!=null){
+            ImageLoader.with(getContext())
+                    .from(builder.getImage())
+                    .placeholder(new ColorDrawable(Color.LTGRAY))
+                    .load(bodyFrame);
+
+        }
+
+        bottombarFrame.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bitmap b= ImageLoader.with(getContext())
+                        .from(builder.getImage())
+                        .placeholder(new ColorDrawable(Color.LTGRAY))
+                        .loadSync();
+                Toast.makeText(getContext(),storeImage(b,builder.getImageName()),Toast.LENGTH_LONG).show();
+
+            }
+        });
+
     }
 
+
+
+    public static String storeImage(Bitmap bitmap, String filename) {
+
+        String stored = null;
+
+        File sdcard = Environment.getExternalStorageDirectory();
+        File file = new File(sdcard, filename + ".png");
+
+        if (file.exists())
+            file.delete();
+
+        try {
+            FileOutputStream out = new FileOutputStream(file);
+            bitmap.compress(Bitmap.CompressFormat.PNG, 90, out);
+            out.flush();
+            out.close();
+            stored = "success";
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return stored;
+    }
 
     private GradientDrawable getToolbarShape(WHBuilder builder){
         final float scale = getContext().getResources().getDisplayMetrics().density;

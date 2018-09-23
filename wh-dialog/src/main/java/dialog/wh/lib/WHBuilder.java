@@ -1,8 +1,8 @@
 package dialog.wh.lib;
 
-
-import android.app.Fragment;
 import android.graphics.drawable.Drawable;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 
 public class WHBuilder {
     private String toolbarColor = "#3300ec";
@@ -10,11 +10,31 @@ public class WHBuilder {
     private String toolbarTitle = null;
     private Drawable toolbarIcon = null;
     private Drawable toolbarCloseIcon = null;
-    private int dialogHieght = 300;
+    private int dialogHieght = 500;
     private int radius = 20;
+    private String Image;
+    private String ImageName;
 
     private Fragment fragment;
+    private FragmentManager fragmentManager;
+    public WHBuilder setImageName(String ImageName){
+        this.ImageName=ImageName;
+        return this;
+    }
 
+    public String getImageName(){
+        return this.ImageName;
+    }
+
+
+    public WHBuilder setImage(String Image){
+        this.Image=Image;
+        return this;
+    }
+
+    public String getImage(){
+        return this.Image;
+    }
     public WHBuilder setToolbarColor(String toolbarColor) {
         this.toolbarColor = toolbarColor;
         return this;
@@ -50,10 +70,12 @@ public class WHBuilder {
         return this;
     }
 
-    public WHBuilder build(Fragment fragment) {
+    public WHBuilder build(Fragment fragment,FragmentManager fragmentManager) {
         this.fragment = fragment;
         return this;
     }
+
+
 
     public Drawable getToolbarCloseIcon() {
         return this.toolbarCloseIcon;
@@ -87,5 +109,7 @@ public class WHBuilder {
     public Fragment getFragment() {
         return this.fragment;
     }
-
+    public FragmentManager getFragmentManager() {
+        return this.fragmentManager;
+    }
 }
