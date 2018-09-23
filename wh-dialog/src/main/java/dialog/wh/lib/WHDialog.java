@@ -11,8 +11,6 @@ import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Build;
 import android.os.Environment;
-import android.support.v4.app.ActivityCompat;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
@@ -25,14 +23,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.budiyev.android.imageloader.ImageLoader;
-import com.budiyev.android.imageloader.ImageUtils;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 
-import static android.content.ContentValues.TAG;
-import static android.support.v4.content.PermissionChecker.checkSelfPermission;
 
 
 public class WHDialog extends Dialog implements View.OnClickListener {

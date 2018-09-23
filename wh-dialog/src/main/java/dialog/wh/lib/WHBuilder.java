@@ -1,8 +1,8 @@
 package dialog.wh.lib;
 
+import android.app.Fragment;
+import android.app.FragmentManager;
 import android.graphics.drawable.Drawable;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 
 public class WHBuilder {
     private String toolbarColor = "#3300ec";
